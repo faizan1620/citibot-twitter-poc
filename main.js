@@ -7,8 +7,9 @@ const bodyParser = require('body-parser')
 app.use(cors({ credentials: true }))
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
+const crypto = require('crypto')
 
-const { OAUTH_CONSUMER_KEY, OAUTH_TOKEN, OAUTH_NONCE, OAUTH_SIGNATURE } = process.env
+const { OAUTH_CONSUMER_KEY, OAUTH_CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_NONCE, OAUTH_SIGNATURE } = process.env
 
 app.post('/send', bodyParser.json(), async (req, res) => {
 
@@ -53,6 +54,13 @@ app.post('/send', bodyParser.json(), async (req, res) => {
 app.post('/receive', async(req,res) => {
   console.log("Incoming webhook=> ",res.body)
   res.send("received")
+})
+
+app.get('/receive', async(req,res) => {
+  const crc_token = req.query.crc_token
+  hmac = crypto.createHmac('sha256', OAUTH_CONSUMER_SECRET).update(crc_token).digest('base64')
+  response = {response_token: 'sha256=' +hmac}
+  res.send(response)
 })
 
 app.listen(3000,()=>
