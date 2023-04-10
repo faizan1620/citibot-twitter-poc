@@ -12,8 +12,8 @@ const crypto = require('crypto')
 const { OAUTH_CONSUMER_KEY, OAUTH_CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_NONCE, OAUTH_SIGNATURE } = process.env
 app.post('/send', bodyParser.json(), async (req, res) => {
 
-  const recipientID = "1640248464972951553"
-  const text = "Hi This is a test message"
+  const recipientID = req.body.recipientId; //"1640248464972951553"
+  const text = req.body.text;   //"Hi This is a test message"
 
     // URL Link for twitter endpoint
     const urlLink = 'https://api.twitter.com/1.1/direct_messages/events/new.json';
@@ -52,8 +52,8 @@ app.post('/send', bodyParser.json(), async (req, res) => {
 })
 
 app.post('/receive', async(req,res) => {
-  console.log("Incoming webhook res=> ",res.body)
-  console.log("Incoming webhook req=> ",req.body)
+  msg = req.direct_message_events[0].message_create
+  console.log("Received message =>", JSON.stringify(msg))
   res.send("received")
 })
 
