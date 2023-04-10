@@ -52,7 +52,7 @@ app.post('/send', bodyParser.json(), async (req, res) => {
 })
 
 app.post('/receive', async(req,res) => {
-  msg = req.direct_message_events[0].message_create
+  msg = req.body.direct_message_events[0].message_create
   console.log("Received message =>", JSON.stringify(msg))
   res.send("received")
 })
