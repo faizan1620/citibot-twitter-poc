@@ -10,14 +10,14 @@ app.use(bodyParser.json())
 const crypto = require('crypto')
 
 const { OAUTH_CONSUMER_KEY, OAUTH_CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_NONCE, OAUTH_SIGNATURE } = process.env
-
 app.post('/send', bodyParser.json(), async (req, res) => {
 
-  const recipientID = "1603309278"
+  const recipientID = "1640248464972951553"
   const text = "Hi This is a test message"
 
     // URL Link for twitter endpoint
     const urlLink = 'https://api.twitter.com/1.1/direct_messages/events/new.json';
+    
     
     // Generating timestamp
     const ts = Math.floor(new Date().getTime()/1000);
@@ -28,7 +28,7 @@ app.post('/send', bodyParser.json(), async (req, res) => {
         "oauth_version"          : "1.0",
         "oauth_consumer_key"     : OAUTH_CONSUMER_KEY,
         "oauth_token"            : OAUTH_TOKEN,
-        "oauth_timestamp"        :  1680603872,
+        "oauth_timestamp"        : 1681107736,
         "oauth_nonce"            : OAUTH_NONCE,
         "oauth_signature_method" : "HMAC-SHA1",
         "oauth_signature"        : OAUTH_SIGNATURE
@@ -42,7 +42,7 @@ app.post('/send', bodyParser.json(), async (req, res) => {
          "Authorization": `OAuth oauth_consumer_key="${params.oauth_consumer_key}", oauth_nonce= ${params.oauth_nonce}, oauth_signature= ${params.oauth_signature}, oauth_signature_method="HMAC-SHA1", oauth_timestamp=${params.oauth_timestamp},oauth_token="${params.oauth_token}", oauth_version=${params.oauth_version}`,
          "Content-type": 'application/json'
         },
-        body: dataString
+       body: dataString
       }
 
     request.post(options, (error, response, body) =>{
