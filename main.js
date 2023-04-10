@@ -52,7 +52,8 @@ app.post('/send', bodyParser.json(), async (req, res) => {
 })
 
 app.post('/receive', async(req,res) => {
-  console.log("Incoming webhook=> ",res.body)
+  console.log("Incoming webhook res=> ",res.body)
+  console.log("Incoming webhook req=> ",req.body)
   res.send("received")
 })
 
