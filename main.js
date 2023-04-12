@@ -14,6 +14,7 @@ SOURCE = 'twitter'
 
 const parseTwitterWebhook = (event) => {
   let webhookBody
+  console.log("event=>",event)
   event.direct_message_events.forEach(function (entry) {
     let webhookEvent = entry.message_create
     webhookBody = webhookEvent
