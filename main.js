@@ -86,14 +86,14 @@ app.post('/send', bodyParser.json(), async (req, res) => {
 app.post('/receive', async(req,res) => {
   let card = {}
   const webhook = parseTwitterWebhook(req.body)
-  const { text, from, to } = webhook
-  console.log(webhook)
+
   if(!webhook){
     console.log("Error in parsing incoming webhook")
     res.sendStatus(404)
     return
   }
-
+  const { text, from, to } = webhook
+  
   if(!text || !from){
     console.log("Messsage could not be received")
     res.sendStatus(404)
