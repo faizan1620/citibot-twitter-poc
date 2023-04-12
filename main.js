@@ -14,14 +14,15 @@ SOURCE = 'twitter'
 
 const parseTwitterWebhook = (event) => {
   let webhookBody
-  console.log("event=>",event)
-  event.direct_message_events.forEach(function (entry) {
-    let webhookEvent = entry.message_create
-    webhookBody = webhookEvent
-    webhookBody.to =  webhookEvent.target.recipient_id
-    webhookBody.from =  webhookEvent.sender_id
-    webhookBody.text =  webhookEvent.message_data.text
-  })
+  if(event.direct_message_events) {
+    event.direct_message_events.forEach(function (entry) {
+      let webhookEvent = entry.message_create
+      webhookBody = webhookEvent
+      webhookBody.to =  webhookEvent.target.recipient_id
+      webhookBody.from =  webhookEvent.sender_id
+      webhookBody.text =  webhookEvent.message_data.text
+    })
+  }
   return webhookBody
 }
 
