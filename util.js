@@ -1,6 +1,5 @@
 require('dotenv').config()
 const oauthSignature = require('oauth-signature');
-const fetch = require('node-fetch')
 
 const { OAUTH_CONSUMER_KEY, OAUTH_CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET } = process.env
 const urlLink = 'https://api.twitter.com/1.1/direct_messages/events/new.json';
